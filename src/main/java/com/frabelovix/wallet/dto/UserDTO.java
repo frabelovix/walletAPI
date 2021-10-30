@@ -4,9 +4,12 @@ package com.frabelovix.wallet.dto;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 	private Long id;
 	@Length(min=3, max=50, message="A nome deve ter no mínimo 3 e no máximo 50 caracteres")
