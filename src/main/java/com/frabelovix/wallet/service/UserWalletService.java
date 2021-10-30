@@ -1,5 +1,8 @@
 package com.frabelovix.wallet.service;
 
-public class UserWalletService {
+import com.frabelovix.wallet.entitty.UserWallet;
+
+public interface UserWalletService {
+	UserWallet save(UserWallet uw);
 
 }
