@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.frabelovix.wallet.dto.WalletItemDTO;
+import com.frabelovix.wallet.entitty.Wallet;
 import com.frabelovix.wallet.entitty.WalletItem;
 import com.frabelovix.wallet.response.Response;
 import com.frabelovix.wallet.service.WalletItemService;
@@ -34,7 +35,7 @@ import com.frabelovix.wallet.util.enums.TypeEnum;
 
 @RestController
 @RequestMapping("wallet-item")
-public class WalletItenController {
+public class WalletItemController {
 
 	@Autowired
 	WalletItemService service;
@@ -107,7 +108,7 @@ public class WalletItenController {
 		if (!wi.isPresent()) {
 			result.addError(new ObjectError("WalletItem", "WalletItem não encontrado"));
 		} else {
-			if (wi.get().getWallet().getId() != dto.getWallet().getId()) {
+			if (wi.get().getWallet().getId() != dto.getWallet()) {
 				result.addError(new ObjectError("WalletItem", "Você não pode alterar a carteira"));
 			}
 		}
@@ -126,19 +127,20 @@ public class WalletItenController {
 
 	}
 
-	@DeleteMapping(value = "/walletItemId")
-	public ResponseEntity<Response<String>> delete(@PathVariable("wallet") Long walletItemId) {
+	@DeleteMapping(value = "/{walletItemId}")
+	//@RequestMapping(value = "/{walletItemId}",method=RequestMethod.DELETE)
+	public ResponseEntity<Response<String>> delete(@PathVariable("walletItemId") Long walletItemId) {
 		Response<String> response = new Response<String>();
 
 		Optional<WalletItem> wi = service.findById(walletItemId);
 
 		if (!wi.isPresent()) {
-			response.getErrors().add("Carteira de id " + walletItemId + " não encontrada");
+			response.getErrors().add("Item da carteira de id " + walletItemId + " não encontrada");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 		}
 
 		service.deleteById(walletItemId);
-		response.setData("Carteira de id " + walletItemId + " excluída com sucesso");
+		response.setData("Item da carteira de id " + walletItemId + " excluída com sucesso");
 		return ResponseEntity.ok().body(response);
 
 	}
@@ -148,9 +150,12 @@ public class WalletItenController {
 		wi.setDate(dto.getDate());
 		wi.setDescription(dto.getDescription());
 		wi.setId(dto.getId());
-		// wi.setType(dto.getType());
+		wi.setType(TypeEnum.getEnum(dto.getType()) );
 		wi.setValue(dto.getValue());
-		wi.setWallet(dto.getWallet());
+		Wallet w = new Wallet();
+		w.setId(dto.getWallet());
+		
+		wi.setWallet(w);
 
 		return wi;
 	}
@@ -160,9 +165,9 @@ public class WalletItenController {
 		dto.setDate(w.getDate());
 		dto.setDescription(w.getDescription());
 		dto.setId(w.getId());
-		// dto.setType(w.getType());
+		 dto.setType(w.getType().getValue());
 		dto.setValue(w.getValue());
-		dto.setWallet(w.getWallet());
+		dto.setWallet(w.getWallet().getId());
 
 		return dto;
 	}

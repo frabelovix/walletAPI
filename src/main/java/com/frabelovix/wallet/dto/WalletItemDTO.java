@@ -18,7 +18,7 @@ public class WalletItemDTO {
 
 	private Long id;
 	@NotNull(message = "Insira uma carteira válida")
-	private Wallet wallet;
+	private Long wallet;
 	@NotNull(message = "Insira uma data")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt-BR", timezone = "Brazil/East")
 	private Date date;
