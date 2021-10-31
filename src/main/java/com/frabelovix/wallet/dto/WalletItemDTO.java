@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.frabelovix.wallet.entitty.Wallet;
 
 import lombok.Data;
@@ -19,6 +20,7 @@ public class WalletItemDTO {
 	@NotNull(message = "Insira uma carteira válida")
 	private Wallet wallet;
 	@NotNull(message = "Insira uma data")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt-BR", timezone = "Brazil/East")
 	private Date date;
 	@NotNull(message = "Insira um tipo")
 	@Pattern(regexp="^(ENTRADA|SAÍDA)$", message="Para o tipo somente são aceitos os valores ENTRADA ou SAÍDA")
