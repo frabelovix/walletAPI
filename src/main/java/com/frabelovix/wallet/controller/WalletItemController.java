@@ -38,7 +38,6 @@ import com.frabelovix.wallet.service.WalletItemService;
 import com.frabelovix.wallet.util.Util;
 import com.frabelovix.wallet.util.enums.TypeEnum;
 
-
 @RestController
 @RequestMapping("wallet-item")
 public class WalletItemController {

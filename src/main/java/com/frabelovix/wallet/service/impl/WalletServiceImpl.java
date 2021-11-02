@@ -11,12 +11,12 @@ import com.frabelovix.wallet.service.WalletService;
 public class WalletServiceImpl implements WalletService{
 
 	@Autowired
-	WalletRepository repository;
-
+	private WalletRepository repository;
+	
 	@Override
 	public Wallet save(Wallet w) {
-		
+		// TODO Auto-generated method stub
 		return repository.save(w);
 	}
-	
+
 }
