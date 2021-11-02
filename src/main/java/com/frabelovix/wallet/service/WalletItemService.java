@@ -14,7 +14,7 @@ public interface WalletItemService {
 
 	WalletItem save(WalletItem wi);
 	
-	Page<WalletItem> FindBetweenDates(Long wallet, Date start, Date end, int page );
+	Page<WalletItem> findBetweenDates(Long wallet, Date start, Date end, int page );
 	
 	List<WalletItem> findByWalletAndType(Long wallet, TypeEnum type);
 

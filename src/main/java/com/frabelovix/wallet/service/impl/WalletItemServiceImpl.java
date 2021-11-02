@@ -31,7 +31,7 @@ public class WalletItemServiceImpl implements WalletItemService {
 	}
 
 	@Override
-	public Page<WalletItem> FindBetweenDates(Long wallet, Date start, Date end, int page) {
+	public Page<WalletItem> findBetweenDates(Long wallet, Date start, Date end, int page) {
 
 		PageRequest pg = PageRequest.of(page, itemPerPage);
 
